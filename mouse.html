@@ -38,20 +38,20 @@
     <h1>Move the mouse!</h1>
 
     <script>
-        // Add event listener for mouse movement
+        <!-- Add event listener for mouse movement -->
         document.addEventListener('mousemove', (event) => {
-            // Create a new circle element
+            <!-- Create a new circle element -->
             const circle = document.createElement('div');
             circle.classList.add('circle');
 
-            // Set the position of the new circle to the current mouse position
+            <!-- Set the position of the new circle to the current mouse position -->
             circle.style.left = `${event.pageX}px`;
             circle.style.top = `${event.pageY}px`;
 
-            // Append the circle to the body
+            <!-- Append the circle to the body -->
             document.body.appendChild(circle);
 
-            // Remove the circle after a short delay (to prevent infinite duplication)
+            <!-- Remove the circle after a short delay (to prevent infinite duplication) -->
             setTimeout(() => {
                 circle.remove();
             }, 500); // The circle will last for 2 seconds
