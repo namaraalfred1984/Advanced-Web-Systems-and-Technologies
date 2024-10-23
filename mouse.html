@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor Duplicating Circles</title>
+    <style>
+        /* Base styles for the duplicated circles */
+        .circle {
+            width: 20px;
+            height: 20px;
+            background-color: green;
+            border-radius: 20%;
+            position: absolute;
+            pointer-events: none; /* Prevent the circles from interfering with mouse events */
+        }
+
+        /* Full page area for mouse movement */
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+	body {
+ 	 background-color: lightblue;
+	}
+
+        h1 {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Move the mouse!</h1>
+
+    <script>
+        // Add event listener for mouse movement
+        document.addEventListener('mousemove', (event) => {
+            // Create a new circle element
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+
+            // Set the position of the new circle to the current mouse position
+            circle.style.left = `${event.pageX}px`;
+            circle.style.top = `${event.pageY}px`;
+
+            // Append the circle to the body
+            document.body.appendChild(circle);
+
+            // Remove the circle after a short delay (to prevent infinite duplication)
+            setTimeout(() => {
+                circle.remove();
+            }, 500); // The circle will last for 2 seconds
+        });
+    </script>
+</body>
+</html>

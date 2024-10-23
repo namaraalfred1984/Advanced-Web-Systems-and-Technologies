@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+	body {
+  	background-color: purple;
+	}
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+	    width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+h2 {
+            text-align: center;
+            position: top;
+            width: 100%;
+            top: 20px;
+	    color: white;
+}
+    </style>
+</head>
+<body>
+
+    <h2>Create Account</h2>
+    
+    <!-- Registration Form -->
+<br>
+    <form id="registrationForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <div class="error" id="usernameError"></div>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <div class="error" id="emailError"></div>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <div class="error" id="passwordError"></div>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword">
+        <div class="error" id="confirmPasswordError"></div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      <!-- Form validation logic -->
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            <!-- Prevent form submission by default -->
+            event.preventDefault();
+
+            <!-- Clear previous error messages -->
+            clearErrors();
+
+            <!-- Get form values -->
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+            let hasError = false;
+
+            <!-- Validate username -->
+            if (username === '') {
+                displayError('usernameError', 'Username is required.');
+                hasError = true;
+            }
+
+            <!-- Validate email -->
+            if (email === '') {
+                displayError('emailError', 'Email is required.');
+                hasError = true;
+            } else if (!isValidEmail(email)) {
+                displayError('emailError', 'Invalid email format.');
+                hasError = true;
+            }
+
+            <!-- Validate password -->
+            if (password === '') {
+                displayError('passwordError', 'Password is required.');
+                hasError = true;
+            } else if (!isValidPassword(password)) {
+                displayError('passwordError', 'Password must be at least 8 characters long and contain at least one number.');
+                hasError = true;
+            }
+
+            <!-- Validate password confirmation -->
+            if (confirmPassword === '') {
+                displayError('confirmPasswordError', 'Please confirm your password.');
+                hasError = true;
+            } else if (password !== confirmPassword) {
+                displayError('confirmPasswordError', 'Passwords do not match.');
+                hasError = true;
+            }
+
+            <!-- If no errors, allow form submission (for demonstration purposes, alert success) -->
+            if (!hasError) {
+                alert('Form submitted successfully!');
+                <!-- You can now submit the form to the server -->
+            }
+        });
+
+        <!-- Function to display error messages -->
+        function displayError(elementId, message) {
+            document.getElementById(elementId).innerText = message;
+        }
+
+        <!-- Function to clear all error messages -->
+        function clearErrors() {
+            const errorElements = document.getElementsByClassName('error');
+            for (let i = 0; i < errorElements.length; i++) {
+                errorElements[i].innerText = '';
+            }
+        }
+
+        <!-- Email validation function -->
+        function isValidEmail(email) {
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return emailPattern.test(email);
+        }
+
+        <!-- Password validation function (at least 8 characters, one number) -->
+        function isValidPassword(password) {
+            const passwordPattern = /^(?=.*[0-9]).{8,}$/;
+            return passwordPattern.test(password);
+        }
+    </script>
+
+</body>
+</html>

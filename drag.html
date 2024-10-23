@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+    <style>
+        /* Style for the draggable box */
+        #draggableBox {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            cursor: grab;
+            border-radius: 10px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            color: brown;
+            font-family: Arial, sans-serif;
+            padding: 30px 50px;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+body {
+  background-color: lightgreen;
+}
+h2 {
+            text-align: center;
+            position: top;
+            width: 100%;
+            top: 20px;
+	    color: white;
+}
+div {
+  display: block;
+}
+    </style>
+</head>
+<body>
+<h2>Dragging & Dropping the Box</h2>
+    <!-- Draggable Box -->
+    <div id="draggableBox">Drag<br>This<br>Form</div>
+
+    <script>
+        <!-- Get the draggable box element -->
+        const draggableBox = document.getElementById('draggableBox');
+
+        <!-- Variables to store mouse and element positions -->
+        let offsetX = 0, offsetY = 0, isDragging = false;
+
+        <!-- Add mousedown event to start dragging -->
+        draggableBox.addEventListener('mousedown', (e) => {
+            // Mark the element as being dragged
+            isDragging = true;
+            draggableBox.style.cursor = 'grabbing';
+
+            <!-- Calculate the offset between the mouse and the top-left corner of the box -->
+            offsetX = e.clientX - draggableBox.getBoundingClientRect().left;
+            offsetY = e.clientY - draggableBox.getBoundingClientRect().top;
+        });
+
+        <!-- Add mousemove event to handle dragging -->
+        document.addEventListener('mousemove', (e) => {
+            <!-- Only move the box if it's being dragged -->
+            if (isDragging) {
+                <!-- Calculate new position based on the mouse's position -->
+                const newX = e.clientX - offsetX;
+                const newY = e.clientY - offsetY;
+
+                <!-- Update the box's position -->
+                draggableBox.style.left = `${newX}px`;
+                draggableBox.style.top = `${newY}px`;
+            }
+        });
+
+        <!-- Add mouseup event to stop dragging -->
+        document.addEventListener('mouseup', () => {
+            <!-- Stop dragging -->
+            isDragging = false;
+            draggableBox.style.cursor = 'grab';
+        });
+    </script>
+
+</body>
+</html>
